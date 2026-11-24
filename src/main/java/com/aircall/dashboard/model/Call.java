@@ -4,15 +4,22 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Call {
     private String id;
     private String direction;
     private String from;
     private String to;
+    @JsonProperty("call_type")
     private String callType;
     private int duration;
+    @JsonProperty("is_archived")
     private boolean isArchived;
+    @JsonProperty("created_at")
     private Instant createdAt;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Note> notes = new ArrayList<>();
 
 
@@ -78,7 +85,7 @@ public class Call {
     public void setDuration(int duration) {
         this.duration = duration;
     }
-
+    @JsonProperty("is_archived")
     public boolean isArchived() {
         return isArchived;
     }

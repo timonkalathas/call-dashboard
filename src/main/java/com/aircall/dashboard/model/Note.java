@@ -1,8 +1,11 @@
 package com.aircall.dashboard.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Note {
 
-	private String id; 
+	private String id;
+	@JsonIgnore
 	private String callId;
 	private String content;
 	

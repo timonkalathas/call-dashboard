@@ -1,12 +1,17 @@
 package com.aircall.dashboard.service;
 
-import com.aircall.dashboard.model.Call;
-import com.aircall.dashboard.repository.CallRepository;
-
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
+import com.aircall.dashboard.model.Call;
+import com.aircall.dashboard.model.Note;
+import com.aircall.dashboard.repository.CallRepository;
+
+@Service
 public class CallService {
 
   
@@ -41,4 +46,21 @@ public class CallService {
 
         return Optional.empty();
     }
+    public Optional<Note> addNote(String callId, String content) {
+        Optional<Call> optionalCall = callRepository.findById(callId);
+
+        if (optionalCall.isPresent()) {
+            Call call = optionalCall.get();
+            String noteId = "note-" + UUID.randomUUID().toString().substring(0, 6);
+            Note newNote = new Note(noteId, callId, content);
+            
+            call.getNotes().add(newNote);
+            callRepository.save(call);
+            
+            return Optional.of(newNote);
+        }
+
+        return Optional.empty();
+    }
+
 }
