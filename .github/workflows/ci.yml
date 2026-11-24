@@ -22,4 +22,4 @@ jobs:
           cache: maven
 
       - name: Run Automated Tests
-        run: ./mvnw -B test
+        run: chmod +x mvnw && ./mvnw -B test
